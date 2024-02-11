@@ -286,3 +286,24 @@ noscript {
 	padding: 10px;
 	font-size: 2rem;
 }
+
+table {
+	border-collapse: collapse;
+	
+	th {
+		text-align: left;
+	}
+	
+	th,
+	td {
+		padding: 5px 10px;
+		
+		&:not(:first-child) {
+			border-left: 1px dotted rgba(100, 200, 255, 0.3);
+		}
+	}
+	
+	td {
+		border-top: 1px dotted rgba(100, 200, 255, 0.3);
+	}
+}
