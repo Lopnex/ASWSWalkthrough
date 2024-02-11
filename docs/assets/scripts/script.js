@@ -84,7 +84,13 @@
 		for(i = 0; i < hiddenKeys.length; i++) {
 			let menuItem = $('#menu [data-target="' + hiddenKeys[i] + '"]');
 			menuItem.parent().hide();
-			$('#hidden-section-list').append('<li><span class="toggle-hidden" data-unhide="' + hiddenKeys[i] + '">Unhide ' + menuItem.text() + '</span></li>');
+			$('#hidden-section-list').append([
+				'<tr>',
+					'<td>' + menuItem.text() + '</td>',
+					'<td>' + hidden[hiddenKeys[i]].replace(/\-/g, '.') + '</td>',
+					'<td><span class="toggle-hidden" data-unhide="' + hiddenKeys[i] + '">Unhide</span></td>',
+				'</tr>'
+			].join(''));
 		}
 		
 		// Jump between sections
@@ -128,13 +134,19 @@
 				
 				let menuItem = $('#menu [data-target="' + currentSection + '"]');
 				menuItem.parent().hide();
-				$('#hidden-section-list').append('<li><span class="toggle-hidden" data-unhide="' + hiddenKeys[i] + '">Unhide ' + menuItem.text() + '</span></li>');
+				$('#hidden-section-list').append([
+					'<tr>',
+						'<td>' + menuItem.text() + '</td>',
+						'<td>' + hidden[hiddenKeys[i]].replace(/\-/g, '.') + '</td>',
+						'<td><span class="toggle-hidden" data-unhide="' + hiddenKeys[i] + '">Unhide</span></td>',
+					'</tr>'
+				].join(''));
 			} else {
 				hiddenKeys.splice(hiddenIdx, 1);
 				delete hidden[currentSection];
 				$(this).text('Hide');
 				$('#menu [data-target="' + currentSection + '"]').parent().show();
-				$('#hidden-section-list').find('[data-unhide="' + currentSection + '"]').parent().remove();
+				$('#hidden-section-list').find('[data-unhide="' + currentSection + '"]').closest('tr').remove();
 			}
 			
 			Cookies.set('wt-hidden', JSON.stringify(hidden), {expires: 365});
@@ -156,7 +168,7 @@
 			}
 			
 			$('#menu [data-target="' + section + '"]').parent().show();
-			$(this).parent().remove();
+			$(this).closest('tr').remove();
 		
 			return false;
 		});
