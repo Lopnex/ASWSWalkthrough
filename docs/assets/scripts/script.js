@@ -137,7 +137,7 @@
 				$('#hidden-section-list').append([
 					'<tr>',
 						'<td>' + menuItem.text() + '</td>',
-						'<td>' + hidden[hiddenKeys[i]].replace(/\-/g, '.') + '</td>',
+						'<td>' + latestVersion.replace(/\-/g, '.') + '</td>',
 						'<td><span class="toggle-hidden" data-unhide="' + hiddenKeys[i] + '">Unhide</span></td>',
 					'</tr>'
 				].join(''));
