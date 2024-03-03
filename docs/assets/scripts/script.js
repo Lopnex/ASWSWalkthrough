@@ -86,7 +86,7 @@
 			menuItem.parent().hide();
 			$('#hidden-section-list').append([
 				'<tr>',
-					'<td>' + menuItem.text() + '</td>',
+					'<td><span class="wt-link" data-target="' + hiddenKeys[i] + '">' + menuItem.text() + '</span></td>',
 					'<td>' + hidden[hiddenKeys[i]].replace(/\-/g, '.') + '</td>',
 					'<td><span class="toggle-hidden" data-unhide="' + hiddenKeys[i] + '">Unhide</span></td>',
 				'</tr>'
