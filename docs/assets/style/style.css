@@ -80,10 +80,17 @@ html, body {
 	line-height: 40px;
 	font-size: 3.5rem;
 	
-	> a {
-		display: block;
-		width: 40px;
-		height: 40px;
+	.support-logos {
+		display: flex;
+		justify-content: space-between;
+		width: 90px;
+		line-height: 40px;
+		
+		> a {
+			display: block;
+			width: 40px;
+			height: 40px;
+		}
 	}
 	
 	.toggle-hidden {
