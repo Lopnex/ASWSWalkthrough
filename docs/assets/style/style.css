@@ -78,7 +78,7 @@ html, body {
 }
 	
 #toggle-sort {
-    position: absolute;
+	position: absolute;
 	top: 5px;
 	right: 5px;
 	width: 25px;
