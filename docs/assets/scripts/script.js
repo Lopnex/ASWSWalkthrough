@@ -206,5 +206,54 @@
 		} else {
 			$('#highlight-menu .highlight-link[data-highlight="' + versions[0] + '"]').trigger('click');
 		}
+		
+		// Toggle menu sort order
+		let menuIndex = 0,
+			menuList = [],
+			menuElement = $('#menu > ul');
+			
+		$('> li', menuElement).each(function() {
+			$(this).data('index', menuIndex++);
+			menuList.push($(this));
+		});
+		
+		$('#toggle-sort').on('click', function(event) {
+			event.preventDefault();
+			
+			if($(this).hasClass('active')) {
+				menuList.sort(function(a, b) {
+					return a.data('index') - b.data('index');
+				});
+				
+				$(this).toggleClass('active', false);
+			} else {
+				menuList.sort(function(a, b) {
+					let aDiv = a.children('div'),
+						bDiv = b.children('div'),
+						aTarget = aDiv.data('target'),
+						bTarget = bDiv.data('target');
+					
+					if(aTarget == 'wt-info') {
+						return -1;
+					} else if(aTarget == 'wt-tips' && bTarget != 'wt-info') {
+						return -1
+					} else if(aTarget == 'wt-house' && !['wt-info', 'wt-tips'].includes(bTarget)) {
+						return -1
+					} else if(aTarget == 'wt-intro' && !['wt-info', 'wt-tips', 'wt-house'].includes(bTarget)) {
+						return -1
+					}
+					
+					return aDiv.text() < bDiv.text() ? -1 : 1;
+				});
+				
+				$(this).toggleClass('active', true);
+			}
+				
+			for(let i = 0; i < menuList.length; i++) {
+				menuList[i].appendTo(menuElement);
+			}
+			
+			return false;
+		});
 	});
 })(jQuery);
