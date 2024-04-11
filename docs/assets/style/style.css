@@ -93,8 +93,8 @@ html, body {
 		transition: stroke 0.15s;
 	}
 	
-	&:hover,
-	&.active {
+	&:hover path,
+	&.active path {
 		stroke: rgba(100, 200, 255, 0.7);
 	}
 }
