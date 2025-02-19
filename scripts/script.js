@@ -1,5 +1,56 @@
 (function($) {
 	$(function() {
+		// Load all pages
+		let wtBody = $('#wt-body'),
+			requested = 0,
+			loadSuccess = 0,
+			loadFailed = 0;
+			
+		function postAjaxEvent() {
+			if((loadSuccess + loadFailed) < requested) {
+				return;
+			}
+			
+			if(loadFailed > 0) {
+				alert('Failed to load critical source. Refer to console for details.');
+				return;
+			}
+			
+			init();
+		}
+			
+		$('#menu').find('.wt-link').each(function() {
+			requested++;
+			let sectionId = $(this).data('target');
+			
+			$.ajax({
+				'type': 'GET',
+				'url': '/ASWSWalkthrough/pages/' + sectionId + '.html',
+				'data': {
+					'_': $.now()
+				},
+				'dataType': 'html',
+				'success': function(response) {
+					let newDiv = $('<div>');
+					
+					newDiv.attr({
+						'id': sectionId,
+						'style': sectionId != 'wt-info' ? 'display: none;' : ''
+					}).html(response).appendTo(wtBody);
+					
+					loadSuccess++;
+					postAjaxEvent();
+				},
+				'error': function() {
+					console.log('Error loading ' + sectionId, arguments);
+					loadFailed++;
+					postAjaxEvent();
+				}
+			});
+		});
+	});
+	
+	function init() {
 		// Get sections with new content
 		let newSections = {};
 		$('#menu').find('.wt-link').each(function() {
@@ -255,5 +306,5 @@
 			
 			return false;
 		});
-	});
+	}
 })(jQuery);
