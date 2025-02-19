@@ -27,7 +27,7 @@
 				'type': 'GET',
 				'url': '/ASWSWalkthrough/pages/' + sectionId + '.html',
 				'data': {
-					'_': '{{ site.github.build_revision }}'
+					'_': gitHash
 				},
 				'dataType': 'html',
 				'success': function(response) {
